@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Patient View</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #1e272e;
+      color: #fff;
+      margin: 0;
+    }
+    .topbar {
+      background: #2c3e50;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .topbar h2 {
+      margin: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+    h3 {
+      color: #00cec9;
+      margin-bottom: 1rem;
+    }
+    table {
+      width: 100%;
+      background: #2f3640;
+      border-collapse: collapse;
+      margin-bottom: 2rem;
+    }
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #444;
+      font-size: 1rem;
+    }
+    th {
+      background: #353b48;
+      color: #00a8ff;
+    }
+    tr:nth-child(even) {
+      background: #3d3d3d;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <h2>Patient Portal</h2>
+  </div>
+
+  <div class="container">
+    <h3>Cardiology Consultation Schedule</h3>
+    <table>
+      <thead><tr><th>Doctor</th><th>Time</th><th>Room</th></tr></thead>
+      <tbody>
+        <tr><td>Dr. S. Rao</td><td>10:00 AM – 12:00 PM</td><td>Room 101</td></tr>
+        <tr><td>Dr. A. Shetty</td><td>1:00 PM – 3:00 PM</td><td>Room 102</td></tr>
+      </tbody>
+    </table>
+
+    <h3>OT Surgery Schedule</h3>
+    <table>
+      <thead><tr><th>Patient</th><th>Time</th><th>OT Ward</th></tr></thead>
+      <tbody>
+        <tr><td>R.K.</td><td>9:30 AM</td><td>OT-1</td></tr>
+        <tr><td>M.J.</td><td>11:00 AM</td><td>OT-2</td></tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hospital Entry</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h1 {
+      color: #fff;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
+    .btn {
+      background: white;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      margin: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      background: gainsboro;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Wenlock Hospital</h1>
+  <button class="btn" onclick="window.location.href='patient.html'">I'm a Patient</button>
+  <button class="btn" onclick="window.location.href='staff.html'">I'm Staff</button>
+</body>
+</html>

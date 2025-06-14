@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>OT Console</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f4f6f9;
+    }
+    .topbar {
+      background: #34495e;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .topbar button {
+      margin-left: 10px;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+    .bluebtn { background: #3498db; }
+    .redbtn { background: #e74c3c; }
+    .container { padding: 2rem; max-width: 900px; margin: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      text-align: left;
+      font-size: 1rem;
+    }
+    th {
+      background: #2c3e50;
+      color: white;
+    }
+    button.add-row {
+      margin-top: 1rem;
+      background: #2980b9;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <h2>OT Console</h2>
+    <div>
+      <button class="bluebtn" onclick="triggerAlert('Code Blue','Cardiology')">Code Blue</button>
+      <button class="redbtn" onclick="triggerAlert('Code Red','Cardiology')">Code Red</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <table id="records">
+      <thead>
+        <tr><th>Patient Name</th><th>Issue</th><th>Consultation</th><th>Medicines</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <button class="add-row" onclick="addRow()">+ Add New Row</button>
+  </div>
+
+<script>
+function load() {
+  return JSON.parse(localStorage.getItem('records') || '[]');
+}
+function save(arr) {
+  localStorage.setItem('records', JSON.stringify(arr));
+}
+function paint() {
+  const tbody = document.querySelector("#records tbody");
+  tbody.innerHTML = '';
+  load().filter(r => r.source === 'cardiology').forEach(r => {
+    tbody.innerHTML += `<tr><td>${r.name}</td><td>${r.issues}</td><td>${r.consult}</td><td>${r.meds}</td></tr>`;
+  });
+}
+function addRow() {
+  const name = prompt("Patient Name:");
+  const issues = prompt("Issues:");
+  const consult = prompt("Consultation Notes:");
+  const meds = prompt("Medicines Required:");
+  if (name) {
+    const data = load();
+    data.push({ source: 'cardiology', name, issues, consult, meds });
+    save(data);
+    paint();
+  }
+}
+function triggerAlert(code,msg) {
+  localStorage.setItem('alert', JSON.stringify({ code, message: msg, time: Date.now() }));
+}
+window.addEventListener('storage', e => {
+  if (e.key === 'alert') alert(JSON.parse(e.newValue || 'null').code + " triggered!");
+  if (e.key === 'records') paint();
+});
+paint();
+</script>
+</body>
+</html>

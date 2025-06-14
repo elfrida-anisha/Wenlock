@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pharmacist Console</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+    }
+    .topbar {
+      background: #2d3436;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .topbar button {
+      margin-left: 10px;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+    .bluebtn { background: #0984e3; }
+    .redbtn { background: #d63031; }
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 1rem;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background: #2c3e50;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <h2>Pharmacist View</h2>
+    <div>
+      <button class="bluebtn" onclick="triggerAlert('Code Blue','Pharmacy')">Code Blue</button>
+      <button class="redbtn" onclick="triggerAlert('Code Red','Pharmacy')">Code Red</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Medicines Required from Cardiology & OT</h2>
+    <table>
+      <thead>
+        <tr><th>Department</th><th>Patient</th><th>Medicines</th></tr>
+      </thead>
+      <tbody id="pharma-table"></tbody>
+    </table>
+  </div>
+
+<script>
+function load() {
+  return JSON.parse(localStorage.getItem('records') || '[]');
+}
+function paint() {
+  const tbody = document.getElementById('pharma-table');
+  tbody.innerHTML = '';
+  load().forEach(r => {
+    tbody.innerHTML += `<tr>
+      <td>${r.source.toUpperCase()}</td>
+      <td>${r.name}</td>
+      <td>${r.meds}</td>
+    </tr>`;
+  });
+}
+function triggerAlert(code, source) {
+  localStorage.setItem('alert', JSON.stringify({ code, source, time: Date.now() }));
+}
+window.addEventListener('storage', e => {
+  if (e.key === 'alert') alert(JSON.parse(e.newValue || 'null').code + " alert triggered!");
+  if (e.key === 'records') paint();
+});
+paint();
+</script>
+</body>
+</html>
